@@ -96,4 +96,4 @@ if __name__ == '__main__':
 
   print(classify.accuracy(classifier, test))
 
-  pickle.dump(classifier, open('classifier.o', 'wb'))
+  pickle.dump(classifier, open('bin/classifier.o', 'wb'))
