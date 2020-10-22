@@ -3,6 +3,9 @@ Dumps top submissions off Reddit to csv file
 """
 import praw
 import pandas as pd
+import demoji
+
+demoji.download_codes()
 
 def download_submissions(subreddit, limit=1000):
   settings = {}
@@ -46,11 +49,14 @@ def download_submissions(subreddit, limit=1000):
   }
   for submission in reddit.subreddit(subreddit).top('all', limit=limit):
       for key in d:
-          d[key].append(getattr(submission, key, 'None'))
+          val = getattr(submission, key, 'None')
+          if isinstance(val, str):
+            val = demoji.replace(val)
+          d[key].append(val)
 
   df = pd.DataFrame(data=d)
 
   df.to_csv('{}_dump.csv'.format(subreddit.strip()))
 
 if __name__ == '__main__':
-  download_submissions('pics', limit=50)
+  download_submissions('toronto', limit=10)
