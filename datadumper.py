@@ -1,9 +1,12 @@
 """
-Dumps top submissions off Reddit to csv file
+Dumps top submissions off a Reddit subreddit to a csv file
+
+Input the Reddit API credentials in the 'opt' file at the root of this project.
 """
 import praw
 import pandas as pd
 import demoji
+import re
 
 demoji.download_codes()
 
@@ -52,6 +55,7 @@ def download_submissions(subreddit, limit=1000):
           val = getattr(submission, key, 'None')
           if isinstance(val, str):
             val = demoji.replace(val)
+            val = re.sub('[^A-Za-z0-9]+', '', val)
           d[key].append(val)
 
   df = pd.DataFrame(data=d)
@@ -59,4 +63,4 @@ def download_submissions(subreddit, limit=1000):
   df.to_csv('{}_dump.csv'.format(subreddit.strip()))
 
 if __name__ == '__main__':
-  download_submissions('toronto', limit=10)
+  download_submissions('toronto', limit=999)
