@@ -1,6 +1,7 @@
 # Reddit Analysis Project
 The goal of this project is to perform data science and sentiment analysis on various subreddits to determine patterns in how to reach the top post. Below is a sample report.
 
+[Click here to see the model training](https://github.com/nigel5/rat/blob/master/train.ipynb)
 
 # Analysis of Top 1000 Submissions in r/Toronto
 In this notebook, we will perform sentiment analysis, and some general analysis on the top 1k submissions in r/Toronto using the naive-bayes classification model we built previously, and some other tools. We will be using Seaborn to create plots.
